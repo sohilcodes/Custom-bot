@@ -17,7 +17,7 @@ filters,
 ContextTypes,
 )
 
-================= COLORFUL SLOW CONSOLE LOGGING =================
+#================= COLORFUL SLOW CONSOLE LOGGING =================
 
 class Colors:
 BRIGHT_RED = '\033[91m'
@@ -93,7 +93,7 @@ cprint("📡 Mode: PRIVATE DM ONLY", Colors.BRIGHT_BLUE, delay=0.1)
 cprint("👥 Authorized Users: 1", Colors.BRIGHT_WHITE, delay=0.1)  
 cprint("\n✅ Bot ready! Auto prediction every 4 seconds.\n", Colors.BRIGHT_GREEN, bold=True, delay=0.2)
 
-================= CONFIG =================
+#================= CONFIG =================
 import os
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -111,7 +111,7 @@ Global lock to prevent job overlap
 job_lock = asyncio.Lock()
 auto_predict_enabled = True
 
-================= LOSS PROTECTION GLOBALS =================
+#================= LOSS PROTECTION GLOBALS =================
 
 history_cache = deque(maxlen=20)
 consecutive_losses = 0
@@ -129,7 +129,7 @@ logic_performance = {
 recovery_mode = False
 recovery_counter = 0
 
-================= User Data =================
+#================= User Data =================
 
 USER_FILE = "users.json"
 KEYS_FILE = "keys.json"
@@ -289,7 +289,7 @@ return get_authenticated_user_keyboard()
 else:
 return get_user_keyboard()
 
-================= Helper Functions =================
+#================= Helper Functions =================
 
 def extract_number_from_text(text):
 numbers = re.findall(r'\d+', text)
@@ -311,7 +311,7 @@ f"⏳ DAYS            : -  {days_str}\n\n"
 f"👑 Owner: {OWNER_USERNAME}"
 )
 
-================= PREDICTION LOGICS =================
+#================= PREDICTION LOGICS =================
 
 def sum_digits(n):
 return sum(int(d) for d in str(n))
@@ -336,7 +336,7 @@ return [1, 3, 5, 7, 9][pseudo_random_index]
 else:
 return [0, 2, 4, 6, 8][pseudo_random_index]
 
-================= ENHANCED SERVER LOGICS =================
+#================= ENHANCED SERVER LOGICS =================
 
 def server_s1(period_num, last_num):
 calc = (period_num + last_num) % 2
@@ -439,7 +439,7 @@ if big_score > small_score:
 else:  
     return "SMALL", "ULTRA", small_score / (big_score + small_score)
 
-================= LOSS PROTECTION SYSTEM =================
+#================= LOSS PROTECTION SYSTEM =================
 
 def update_logic_performance(logic_name, won):
 global logic_performance
@@ -492,7 +492,7 @@ levels = ["🟡 Level 1", "🟠 Level 2", "🔴 Level 3"]
 level_msg = levels[min(recovery_counter - 1, 2)]  
 return f"{level_msg} (After {consecutive_losses} loss(es))"
 
-================= ENHANCED PREDICTION ENGINE =================
+#================= ENHANCED PREDICTION ENGINE =================
 
 def get_side_prediction(period_num, last_num, history_list=None, force_recovery=False):
 global recovery_mode, recovery_counter
@@ -561,7 +561,7 @@ side, number, logic_name = get_side_prediction(period_num, last_num, history_lis
 color = "GREEN" if side == "BIG" else "RED"
 return color, number, logic_name
 
-================= API =================
+#================= API =================
 
 async def fetch_history(session):
 try:
@@ -572,7 +572,7 @@ return json.loads(await r.text())
 except:
 return None
 
-================= Background Prediction Job =================
+#================= Background Prediction Job =================
 
 async def prediction_job(context: ContextTypes.DEFAULT_TYPE):
 global auto_predict_enabled, recovery_mode, recovery_counter, consecutive_losses, last_prediction_correct
@@ -793,7 +793,7 @@ else:
                 context.bot_data['last_sent_period'] = next_period  
                 context.bot_data['waiting_result'] = True
 
-================= Commands =================
+#================= Commands =================
 
 async def predict_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 if update.message is None:
@@ -951,7 +951,7 @@ if new_status:
 else:  
     await update.message.reply_text("⏸️ Auto predictions turned OFF! Use /predict for manual predictions.", reply_markup=get_user_keyboard_by_id(user_id))
 
-================= Message Handlers =================
+#================= Message Handlers =================
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 if update.message is None:
@@ -1181,7 +1181,7 @@ if context.user_data.get('admin_action') == 'block_user':
   
 await update.message.reply_text("❓ Please use the buttons.", reply_markup=get_user_keyboard_by_id(user_id))
 
-================= Main with Corrected Network Settings =================
+#================= Main with Corrected Network Settings =================
 
 def main():
 global auto_predict_enabled
